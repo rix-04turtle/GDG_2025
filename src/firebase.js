@@ -1,6 +1,6 @@
 // Firebase configuration and initialization
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { collection, getDocs, doc, updateDoc, addDoc, query, where } from 'firebase/firestore';
 
@@ -57,4 +57,4 @@ async function fetchUserDonations(userId) {
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
-export { app, auth, db, getCurrentUser, fetchDonations, claimDonation, addDonation, fetchUserDonations };
+export { app, auth, db, getCurrentUser, fetchDonations, claimDonation, addDonation, fetchUserDonations, sendPasswordResetEmail };

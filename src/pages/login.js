@@ -61,9 +61,12 @@ export default function Login() {
         {error && <p className="text-red-500 mb-2 text-center">{error}</p>}
         {success && <p className="text-green-500 mb-2 text-center">{success}</p>}
         <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700 transition">Login</button>
-        <p className="mt-4 text-center text-gray-600">
-          Don't have an account? <a href="/signup" className="text-blue-600 hover:underline">Sign Up</a>
-        </p>
+        <div className="mt-4 flex justify-between items-center text-sm">
+          <p className="text-gray-600">
+            Don't have an account? <a href="/signup" className="text-blue-600 hover:underline">Sign Up</a>
+          </p>
+          <a href="/forgot-password" className="text-blue-600 hover:underline">Forgot Password?</a>
+        </div>
       </form>
     </div>
     </>

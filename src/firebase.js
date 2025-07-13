@@ -2,7 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { collection, getDocs, doc, updateDoc, addDoc, query, where } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, addDoc, query, where, onSnapshot, orderBy, Timestamp, getDoc } from 'firebase/firestore';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -38,6 +38,17 @@ async function claimDonation(donationId, userId) {
   await updateDoc(donationRef, { claimedBy: userId });
 }
 
+// Fetch a single donation by its ID
+async function fetchDonationById(donationId) {
+  const donationRef = doc(db, 'donations', donationId);
+  const docSnap = await getDoc(donationRef);
+  if (docSnap.exists()) {
+    return { id: docSnap.id, ...docSnap.data() };
+  } else {
+    throw new Error("Donation not found");
+  }
+}
+
 // Add a new donation to Firestore
 async function addDonation(donationData) {
   try {
@@ -57,4 +68,31 @@ async function fetchUserDonations(userId) {
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
-export { app, auth, db, getCurrentUser, fetchDonations, claimDonation, addDonation, fetchUserDonations, sendPasswordResetEmail };
+// Fetch donations claimed by a specific user
+async function fetchUserClaimedDonations(userId) {
+  const donationsCol = collection(db, 'donations');
+  const q = query(donationsCol, where("claimedBy", "==", userId));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+// Send a chat message
+async function sendMessage(donationId, message) {
+  const messagesCol = collection(db, 'chats', donationId, 'messages');
+  await addDoc(messagesCol, {
+    ...message,
+    timestamp: Timestamp.now(),
+  });
+}
+
+// Get real-time messages for a chat
+function getMessages(donationId, callback) {
+  const messagesCol = collection(db, 'chats', donationId, 'messages');
+  const q = query(messagesCol, orderBy('timestamp', 'asc'));
+  return onSnapshot(q, snapshot => {
+    const messages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    callback(messages);
+  });
+}
+
+export { app, auth, db, getCurrentUser, fetchDonations, claimDonation, fetchDonationById, addDonation, fetchUserDonations, fetchUserClaimedDonations, sendPasswordResetEmail, sendMessage, getMessages };

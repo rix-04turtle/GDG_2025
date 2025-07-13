@@ -81,7 +81,13 @@ export default function BrowseDonations() {
                 </div>
                 <div className="mt-4 md:mt-0 md:ml-6 flex-shrink-0">
                   {donation.claimedBy ? (
-                    <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded font-medium">Claimed</span>
+                    (user && (user.uid === donation.createdBy || user.uid === donation.claimedBy)) ? (
+                      <Link href={`/chat/${donation.id}`} className="px-4 py-2 bg-purple-600 text-white rounded font-medium hover:bg-purple-700 transition">
+                        Chat
+                      </Link>
+                    ) : (
+                      <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded font-medium">Claimed</span>
+                    )
                   ) : user ? (
                     <Button 
                       onClick={() => handleClaim(donation.id)}

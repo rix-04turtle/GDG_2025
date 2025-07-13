@@ -2,7 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { collection, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, addDoc, query, where } from 'firebase/firestore';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -19,6 +19,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+// Get current user
+function getCurrentUser() {
+  return auth.currentUser;
+}
 
 // Fetch all donations from Firestore
 async function fetchDonations() {
@@ -44,4 +49,12 @@ async function addDonation(donationData) {
   }
 }
 
-export { app, auth, db, fetchDonations, claimDonation, addDonation };
+// Fetch donations created by a specific user
+async function fetchUserDonations(userId) {
+  const donationsCol = collection(db, 'donations');
+  const q = query(donationsCol, where("createdBy", "==", userId));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+export { app, auth, db, getCurrentUser, fetchDonations, claimDonation, addDonation, fetchUserDonations };

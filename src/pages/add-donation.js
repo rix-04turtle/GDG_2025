@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { useRouter } from 'next/router';
+import { useAuth } from '../contexts/AuthContext';
+import ProtectedRoute from '../components/ProtectedRoute';
+import Navigation from '../components/Navigation';
 
 export default function AddDonation() {
   const [title, setTitle] = useState('');
@@ -13,6 +16,7 @@ export default function AddDonation() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const router = useRouter();
+  const { user } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +31,8 @@ export default function AddDonation() {
         quantity,
         expiry: expiry ? Timestamp.fromDate(new Date(expiry)) : null,
         createdAt: Timestamp.now(),
+        createdBy: user.uid, // Add the user ID who created the donation
+        createdByEmail: user.email, // Optionally store the email too
         claimedBy: null,
       });
       setSuccess('Donation added successfully!');
@@ -43,7 +49,9 @@ export default function AddDonation() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <ProtectedRoute>
+      <Navigation />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <form
         className="bg-white p-8 rounded shadow-md w-full max-w-md"
         onSubmit={handleSubmit}
@@ -99,5 +107,6 @@ export default function AddDonation() {
         </button>
       </form>
     </div>
+    </ProtectedRoute>
   );
 }

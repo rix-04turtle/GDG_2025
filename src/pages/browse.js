@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
-import { fetchDonations } from '../firebase';
+import { fetchDonations, claimDonation } from '../firebase';
+import { useAuth } from '../contexts/AuthContext';
+import Navigation from '../components/Navigation';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function BrowseDonations() {
   const [donations, setDonations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [claimingId, setClaimingId] = useState(null);
+  const { user } = useAuth();
 
   const loadDonations = async () => {
     setLoading(true);
@@ -19,12 +24,31 @@ export default function BrowseDonations() {
     setLoading(false);
   };
 
+  const handleClaim = async (donationId) => {
+    if (!user) {
+      alert('Please login to claim a donation');
+      return;
+    }
+    
+    setClaimingId(donationId);
+    try {
+      await claimDonation(donationId, user.uid);
+      // Refresh the donations list
+      await loadDonations();
+    } catch (err) {
+      setError('Failed to claim donation.');
+    }
+    setClaimingId(null);
+  };
+
   useEffect(() => {
     loadDonations();
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
+    <>
+      <Navigation />
+      <div className="min-h-screen bg-gray-50 py-10">
       <div className="max-w-3xl mx-auto px-4">
         <h1 className="text-3xl font-bold mb-6 text-center">Browse Donations</h1>
         <div className="flex justify-center mb-6">
@@ -58,8 +82,20 @@ export default function BrowseDonations() {
                 <div className="mt-4 md:mt-0 md:ml-6 flex-shrink-0">
                   {donation.claimedBy ? (
                     <span className="px-4 py-2 bg-gray-300 text-gray-700 rounded font-medium">Claimed</span>
+                  ) : user ? (
+                    <Button 
+                      onClick={() => handleClaim(donation.id)}
+                      disabled={claimingId === donation.id}
+                      className="px-4 py-2 rounded font-medium transition bg-green-600 text-white hover:bg-green-700"
+                    >
+                      {claimingId === donation.id ? 'Claiming...' : 'Claim'}
+                    </Button>
                   ) : (
-                    <button className="px-4 py-2 bg-green-600 text-white rounded font-medium hover:bg-green-700 transition">Claim</button>
+                    <div className="text-center">
+                      <Link href="/login" className="px-4 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition">
+                        Login to Claim
+                      </Link>
+                    </div>
                   )}
                 </div>
               </li>
@@ -73,5 +109,6 @@ export default function BrowseDonations() {
         </div>
       </div>
     </div>
+    </>
   );
 }

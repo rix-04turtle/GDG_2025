@@ -1,0 +1,67 @@
+[debug] [2025-07-13T22:29:40.172Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-13T22:29:40.180Z] > authorizing via signed-in user (sc.linkshortener.1@gmail.com)
+[debug] [2025-07-13T22:44:28.766Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-13T22:44:28.772Z] > authorizing via signed-in user (sc.linkshortener.1@gmail.com)
+[debug] [2025-07-13T22:44:44.775Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-13T22:44:44.777Z] > authorizing via signed-in user (sc.linkshortener.1@gmail.com)
+[debug] [2025-07-13T22:44:44.818Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:44.820Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:44.820Z] > refreshing access token with scopes: []
+[debug] [2025-07-13T22:44:44.864Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-07-13T22:44:44.865Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:45.083Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-13T22:44:45.083Z] > authorizing via signed-in user (sc.linkshortener.1@gmail.com)
+[debug] [2025-07-13T22:44:45.112Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-07-13T22:44:45.112Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:45.113Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/extension-fiem-tejas/services/cloudresourcemanager.googleapis.com [none]
+[debug] [2025-07-13T22:44:45.114Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/extension-fiem-tejas/services/cloudresourcemanager.googleapis.com x-goog-quota-user=projects/extension-fiem-tejas
+[debug] [2025-07-13T22:44:46.700Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/extension-fiem-tejas/services/cloudresourcemanager.googleapis.com 401
+[debug] [2025-07-13T22:44:46.700Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/extension-fiem-tejas/services/cloudresourcemanager.googleapis.com [omitted]
+[debug] [2025-07-13T22:44:46.700Z] Got a 401 Unauthenticated error for a call that required authentication. Refreshing tokens.
+[debug] [2025-07-13T22:44:46.701Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:46.701Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:46.701Z] > refreshing access token with scopes: []
+[debug] [2025-07-13T22:44:46.701Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-07-13T22:44:46.702Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:46.787Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-07-13T22:44:46.787Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:46.791Z] Unable to check that https://cloudresourcemanager.googleapis.com is enabled on extension-fiem-tejas. Calls to it will fail if it is not enabled
+[debug] [2025-07-13T22:44:46.792Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:46.792Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:46.792Z] > refreshing access token with scopes: []
+[debug] [2025-07-13T22:44:46.793Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-07-13T22:44:46.793Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:46.966Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-07-13T22:44:46.967Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:46.967Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/extension-fiem-tejas [none]
+[debug] [2025-07-13T22:44:48.331Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/extension-fiem-tejas 401
+[debug] [2025-07-13T22:44:48.331Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/extension-fiem-tejas {"error":{"code":401,"message":"Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.","status":"UNAUTHENTICATED","details":[{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"ACCESS_TOKEN_TYPE_UNSUPPORTED","metadata":{"method":"google.cloudresourcemanager.v1.Projects.GetProject","service":"cloudresourcemanager.googleapis.com"}}]}}
+[debug] [2025-07-13T22:44:48.331Z] Got a 401 Unauthenticated error for a call that required authentication. Refreshing tokens.
+[debug] [2025-07-13T22:44:48.331Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:48.332Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:48.332Z] > refreshing access token with scopes: []
+[debug] [2025-07-13T22:44:48.333Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-07-13T22:44:48.334Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:48.428Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-07-13T22:44:48.429Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:52.495Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-07-13T22:44:52.495Z] > authorizing via signed-in user (sc.linkshortener.1@gmail.com)
+[debug] [2025-07-13T22:44:52.501Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:52.501Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:52.501Z] > refreshing access token with scopes: []
+[debug] [2025-07-13T22:44:52.503Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-07-13T22:44:52.503Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:52.588Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-07-13T22:44:52.589Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:52.593Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2025-07-13T22:44:53.125Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 401
+[debug] [2025-07-13T22:44:53.127Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2025-07-13T22:44:53.127Z] Got a 401 Unauthenticated error for a call that required authentication. Refreshing tokens.
+[debug] [2025-07-13T22:44:53.128Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:53.128Z] Checked if tokens are valid: false, expires at: 1653342790463
+[debug] [2025-07-13T22:44:53.128Z] > refreshing access token with scopes: []
+[debug] [2025-07-13T22:44:53.128Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-07-13T22:44:53.128Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:53.224Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 400
+[debug] [2025-07-13T22:44:53.225Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-07-13T22:44:53.226Z] Request to https://firebase.googleapis.com/v1beta1/projects?pageSize=1000 had HTTP Error: 401, Request had invalid authentication credentials. Expected OAuth 2 access token, login cookie or other valid authentication credential. See https://developers.google.com/identity/sign-in/web/devconsole-project.

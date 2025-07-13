@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { auth } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { useAuth } from '../contexts/AuthContext';
+import Navigation from '../components/Navigation';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -9,6 +11,13 @@ export default function Signup() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const router = useRouter();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -23,8 +32,14 @@ export default function Signup() {
     }
   };
 
+  if (user) {
+    return null; // Will redirect
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <>
+      <Navigation />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <form className="bg-white p-8 rounded shadow-md w-full max-w-md" onSubmit={handleSignup}>
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <input
@@ -51,5 +66,6 @@ export default function Signup() {
         </p>
       </form>
     </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Navigation from '../components/Navigation';
 
 const features = [
 	{
@@ -62,7 +63,9 @@ const features = [
 
 const Home = () => {
 	return (
-		<main className="min-h-screen bg-gray-50 flex flex-col">
+		<>
+			<Navigation />
+			<main className="min-h-screen bg-gray-50 flex flex-col">
 			{/* Hero Section */}
 			<section className="flex flex-1 flex-col justify-center items-center text-center px-4 py-12 bg-gradient-to-br from-blue-100 to-green-100">
 				<h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">
@@ -96,6 +99,7 @@ const Home = () => {
 				</div>
 			</section>
 		</main>
+	</>
 	);
 };
 

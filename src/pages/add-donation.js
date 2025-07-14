@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { db, storage } from '../firebase';
+import { db, storage, model } from '../firebase';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useRouter } from 'next/router';
@@ -24,6 +24,8 @@ export default function AddDonation() {
   const [imagePreview, setImagePreview] = useState(null);
   const [coords, setCoords] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isScanning, setIsScanning] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const router = useRouter();
@@ -41,9 +43,44 @@ export default function AddDonation() {
     if (file) {
       setImage(file);
       setImagePreview(URL.createObjectURL(file));
+      setAnalysisResult(null); // Reset analysis on new image
+      setError('');
     } else {
       setImage(null);
       setImagePreview(null);
+    }
+  };
+
+  const handleImageAnalysis = async () => {
+    if (!image) {
+      setError('Please select an image first.');
+      return;
+    }
+    setIsScanning(true);
+    setError('');
+    setAnalysisResult(null);
+
+    try {
+      const prompt = "Analyze this image of food. Provide a JSON response with three keys: 'foodName' (a short, descriptive name for the food), 'description' (a brief description suitable for a food donation listing), and 'isEatable' (a boolean, true if the food appears to be safe to eat, false otherwise). Your response must be only the JSON object, without any markdown formatting.";
+      
+      const result = await model.generateContent([prompt, {inlineData: {data: await image.arrayBuffer().then(buffer => btoa(new Uint8Array(buffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))), mimeType: image.type}}]);
+      const responseText = result.response.text();
+      
+      const jsonResponse = JSON.parse(responseText);
+      
+      if (jsonResponse.isEatable) {
+        setTitle(jsonResponse.foodName);
+        setDescription(jsonResponse.description);
+        setAnalysisResult({ success: 'Image analyzed successfully! Form updated.' });
+      } else {
+        setError('AI analysis suggests this item may not be eatable. Please upload a different image.');
+        setAnalysisResult({ error: 'Item may not be eatable.' });
+      }
+    } catch (err) {
+      console.error("AI Analysis Error:", err);
+      setError('Failed to analyze image. Please try again or fill the form manually.');
+    } finally {
+      setIsScanning(false);
     }
   };
 
@@ -142,8 +179,14 @@ export default function AddDonation() {
                     <Button type="button" variant="link" onClick={() => document.getElementById('image').click()}>
                       Change Image
                     </Button>
+                    <Button type="button" onClick={handleImageAnalysis} disabled={isScanning || !image}>
+                      {isScanning && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      {isScanning ? 'Analyzing...' : 'Analyze Image with AI'}
+                    </Button>
                   </div>
                 )}
+                {analysisResult?.success && <p className="text-sm text-green-600 text-center pt-2">{analysisResult.success}</p>}
+                {analysisResult?.error && <p className="text-sm text-red-500 text-center pt-2">{analysisResult.error}</p>}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="title">Title</Label>

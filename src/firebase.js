@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 import { collection, getDocs, doc, updateDoc, addDoc, query, where, onSnapshot, orderBy, Timestamp, getDoc } from 'firebase/firestore';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -19,6 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 // Get current user
 function getCurrentUser() {
@@ -95,4 +97,4 @@ function getMessages(donationId, callback) {
   });
 }
 
-export { app, auth, db, getCurrentUser, fetchDonations, claimDonation, fetchDonationById, addDonation, fetchUserDonations, fetchUserClaimedDonations, sendPasswordResetEmail, sendMessage, getMessages };
+export { app, auth, db, storage, getCurrentUser, fetchDonations, claimDonation, fetchDonationById, addDonation, fetchUserDonations, fetchUserClaimedDonations, sendPasswordResetEmail, sendMessage, getMessages };

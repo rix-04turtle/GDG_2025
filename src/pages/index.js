@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Navigation from '../components/Navigation';
+import { motion } from 'framer-motion';
 
 const features = [
 	{
@@ -65,38 +66,67 @@ const Home = () => {
 	return (
 		<>
 			<Navigation />
-			<main className="min-h-screen bg-gray-50 flex flex-col">
+			<main className="min-h-screen bg-slate-50 flex flex-col pt-20">
 			{/* Hero Section */}
-			<section className="flex flex-1 flex-col justify-center items-center text-center px-4 py-12 bg-gradient-to-br from-blue-100 to-green-100">
-				<h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 tracking-tight">
-					Welcome to KindBite
-				</h1>
-				<p className="text-xl md:text-2xl text-gray-700 mb-8">
-					Share Food. Share Kindness.
-				</p>
-				<Link
-					href="/browse"
-					className="inline-block px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
+			<section className="flex flex-1 flex-col justify-center items-center text-center px-4 py-16 bg-gradient-to-br from-primary/10 via-amber-50 to-slate-50 relative overflow-hidden">
+				<motion.h1
+					initial={{ opacity: 0, y: 40 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.7, ease: 'easeOut' }}
+					className="text-5xl md:text-6xl font-extrabold text-slate-800 mb-4 tracking-tight drop-shadow-lg"
 				>
-					Browse Donations
-				</Link>
+					Welcome to <span className="text-primary">MealBridge</span>
+				</motion.h1>
+				<motion.p
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
+					className="text-xl md:text-2xl text-slate-600 mb-8"
+				>
+					Share Food. Share Kindness.
+				</motion.p>
+				<motion.div
+					initial={{ opacity: 0, scale: 0.95 }}
+					animate={{ opacity: 1, scale: 1 }}
+					transition={{ delay: 0.4, duration: 0.5, ease: 'easeOut' }}
+				>
+					<Link
+						href="/browse"
+						className="inline-block px-8 py-4 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-amber-500 hover:scale-105 transition-all text-lg tracking-wide focus:outline-none focus:ring-4 focus:ring-primary/30"
+					>
+						Browse Donations
+					</Link>
+				</motion.div>
 			</section>
 			{/* Features Section */}
-			<section className="max-w-4xl mx-auto w-full px-4 py-10">
-				<div className="flex flex-col md:flex-row gap-6 justify-center items-stretch">
+			<section className="max-w-5xl mx-auto w-full px-4 py-14">
+				<motion.div
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true, amount: 0.2 }}
+					variants={{
+						hidden: {},
+						visible: { transition: { staggerChildren: 0.15 } },
+					}}
+					className="flex flex-col md:flex-row gap-8 justify-center items-stretch"
+				>
 					{features.map((feature, idx) => (
-						<div
+						<motion.div
 							key={idx}
-							className="flex-1 bg-white rounded-xl shadow p-6 flex flex-col items-center text-center"
+							variants={{
+								hidden: { opacity: 0, y: 40 },
+								visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
+							}}
+							className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl shadow-lg p-8 flex flex-col items-center text-center border border-slate-200 hover:shadow-xl hover:scale-[1.025] transition-all"
 						>
-							{feature.icon}
-							<h3 className="mt-4 text-lg font-bold text-gray-900">
+							<span className="mb-4">{feature.icon}</span>
+							<h3 className="mt-2 text-xl font-bold text-slate-800">
 								{feature.title}
 							</h3>
-							<p className="mt-2 text-gray-600">{feature.description}</p>
-						</div>
+							<p className="mt-2 text-slate-600 text-base">{feature.description}</p>
+						</motion.div>
 					))}
-				</div>
+				</motion.div>
 			</section>
 		</main>
 	</>

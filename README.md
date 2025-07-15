@@ -1,40 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 🥗 MealBridge – Bridging Surplus to Need
 
-## Getting Started
+MealBridge is a **community-driven web application** designed to tackle the twin challenges of food waste and hunger by enabling seamless peer-to-peer food donations. Built with **Next.js**, **Firebase**, and **Google Maps**, the platform empowers individuals, local restaurants, canteens, and households to donate surplus or excess food to those in need — from underprivileged families to NGOs and community kitchens.
 
-First, run the development server:
+By streamlining the process of posting, discovering, and claiming food donations, MealBridge not only reduces food going to waste but also fosters a culture of empathy, sustainability, and shared responsibility within neighborhoods.
+
+---
+
+## 🌍 Project Highlights
+
+- **Built With:** Next.js · Firebase · Google Maps  
+- **Purpose:** Connect donors (homes, restaurants, canteens) with recipients (families, NGOs, community kitchens)  
+- **Features:** Geo-based matching, real-time food listings, secure communications
+
+---
+
+## 💡 How MealBridge Helps Society
+
+| Impact Area                       | Description                                                                                                         |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| 🥗 **Reducing Food Waste**         | Tens of thousands of meals are wasted daily. MealBridge helps redirect this food to people who truly need it.       |
+| 🤝 **Empowering Communities**      | Anyone can contribute — whether it’s a student with leftovers or a restaurant with surplus meals.                   |
+| 🧍 **Supporting the Vulnerable**   | Individuals or families facing food insecurity can easily find available meals nearby without shame or stigma.      |
+| 🌐 **Promoting Circular Economy**  | Bridges the gap between abundance and need, promoting a more circular and sustainable local economy.                |
+| 📍 **Geo-Based Matching**          | With Google Maps integration, users can find or post donations accurately, making hyperlocal impact possible.       |
+
+
+---
+
+## 🚀 Getting Started
 
 ```bash
+# Clone the repository
+git clone https://github.com/rix-04turtle/GDG_2025.git
+cd GDG_2025
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🗂️ Project Structure
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+GDG_2025/
+├── components/        # UI components
+├── pages/             # Next.js routes
+├── public/            # Static assets
+├── styles/            # CSS
+├── utils/             # Utilities
+├── .env.local         # Environment variables
+├── package.json
+```
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## 🔒 Environment Variables
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+Create a `.env.local` file (refer to documentation or codebase for specifics):
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+NEXT_PUBLIC_API_KEY=your-api-key
+NEXT_PUBLIC_FIREBASE_CONFIG=your-firebase-config
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🌐 Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+- **Netlify:** [Live Demo](https://mealbridge-gdg2025.netlify.app/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🤝 Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+---
